@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration</title>
+    <style>
+        /* General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url(image.jpg);
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            padding: 20px;
+        }
+        /* Navbar Styling */
+        .navbar {
+            width: 100%;
+            background-color: #1b54a6;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        .logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .website-name {
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .login-btn {
+            padding: 10px 20px;
+            background-color: #ff9800;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .login-btn:hover {
+            background-color: #e68900;
+        }
+        #p1 {
+            color: white;
+            text-decoration: none;
+        }
+        #p1:hover {
+            text-decoration: underline;
+        }
+        /* Registration Form */
+        .container {
+            width: 90%;
+            max-width: 400px;
+            background: rgba(12, 11, 11, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            color: white;
+            text-align: center;
+            margin-top: 100px;
+        }
+        /* Input Fields */
+        .input-group {
+            position: relative;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .input-group label {
+            position: absolute;
+            top: 12px;
+            left: 10px;
+            font-size: 14px;
+            color: #ddd;
+            transition: 0.3s;
+        }
+        .input-group input {
+            width: 100%;
+            border: none;
+            border-bottom: 2px solid #ddd;
+            background: transparent;
+            outline: none;
+            padding: 10px;
+            color: white;
+            font-size: 16px;
+        }
+        .input-group input:focus {
+            border-bottom: 2px solid #ff9800;
+        }
+        .input-group input:focus + label,
+        .input-group input:not(:placeholder-shown) + label {
+            top: -10px;
+            font-size: 12px;
+            color: #e8e5e2;
+        }
+        /* Gender Selection */
+        .gender-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .gender-group label {
+            font-size: 16px;
+        }
+        /* Button */
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #ff9800;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #e68900;
+        }
+        /* Responsive Adjustments */
+        @media (max-width: 1024px) {
+            .container {
+                width: 80%;
+                max-width: 350px;
+                margin-top: 120px;
+            }
+            .navbar {
+                flex-direction: column;
+                text-align: center;
+                padding: 10px 0;
+            }
+            .logo-container {
+                flex-direction: column;
+            }
+        }
+        @media (max-width: 768px) {
+            .container {
+                width: 93%;
+                margin-top: 120px;
+                padding: 15px;
+            }
+            .navbar {
+                padding: 12px 0;
+                flex-direction: column;
+                text-align: center;
+            }
+            .logo-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .login-btn {
+                margin-top: 5px;
+                padding: 8px 15px;
+                font-size: 14px;
+            }
+        }
+        @media (max-width: 480px) {
+            .container {
+                width: 100%;
+                margin-top: 130px;
+                padding: 10px;
+                border-radius: 5px;
+            }
+            .navbar {
+                padding: 8px 0;
+                flex-direction: column;
+            }
+            .logo-container {
+                flex-direction: column;
+            }
+            .login-btn {
+                font-size: 12px;
+                padding: 6px 12px;
+            }
+            .input-group label {
+                font-size: 12px;
+            }
+            .input-group input {
+                font-size: 14px;
+                padding: 8px;
+            }
+            button {
+                padding: 10px;
+                font-size: 14px;
+            }
+        }
+</style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo-container">
+            <img src="logo.jpg" alt="Website Logo" class="logo">
+            <span class="website-name">Library Management</span>
+        </div>
+        <a href="login.html" class="login-btn">Login</a>
+    </div>
+    <div class="container">
+        <h2>Student Registration</h2>
+        <form action="register.php" method="POST">
+            <div class="input-group">
+                <input type="text" id="username" name="username" placeholder=" " required>
+                <label for="username">Full Name</label>
+            </div>
+            <div class="input-group">
+                <input type="email" id="email" name="email" placeholder=" " required>
+                <label for="email">Email</label>
+            </div>
+            <div class="input-group">
+                <input type="tel" id="phone" name="phone" placeholder=" " required>
+                <label for="phone">Phone Number</label>
+            </div>
+            <div class="input-group">
+                <input type="date" id="dob" name="dob" required>
+                <label for="dob">Date of Birth</label>
+            </div>
+            <label>Gender</label>
+            <div class="gender-group">
+                <label><input type="radio" name="gender" value="male" required> Male</label>
+                <label><input type="radio" name="gender" value="female"> Female</label>
+                <label><input type="radio" name="gender" value="other"> Other</label>
+            </div>
+            <div class="input-group">
+                <input type="password" id="pass" name="pass" placeholder=" " required>
+                <label for="pass">Password</label>
+            </div>
+            <button type="submit">Register</button>
+            <p>Already have an account? <a href="login.html" id="p1">Login now.</a></p>
+        </form>
+    </div>
+</body>
+</html>
