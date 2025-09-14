@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #e0e3e8;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .manage-btn {
+            background-color: #28a745;
+        }
+
+        .manage-btn:hover {
+            background-color: #218838;
+        }
+
+        .menu {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #1b54a6;
+            color: white;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            padding: 10px 15px;
+            background: #007bff;
+            border-radius: 5px;
+        }
+
+        .menu a:hover {
+            background: #0056b3;
+        }
+
+        .marquee {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background: #007bff;
+            color: white;
+        }
+
+        td {
+            text-align: center;
+        }
+
+        .logout-btn {
+            background-color: #d9534f;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .logout-btn:hover {
+            background-color: #c9302c;
+        }
+
+        #typing-text {
+            font-size: 50px;
+            font-weight: bold;
+            color: #1b54a6;
+            text-align: center;
+            margin-bottom: 10px;
+            height: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="menu">
+            <h1>Admin Dashboard</h1>
+            <div>
+                <a href="add_book.html">Add Books</a>
+                <a href="manage_books.php" class="manage-btn">Manage Books</a>
+                <a href="view_users.php">View Users</a>
+            </div>
+    </div>
+
+    </div>
+
+    <marquee class="marquee" behavior="scroll" direction="left">
+        You are on the Admin Dashboard page of the Library Management System.
+    </marquee>
+
+    <div id="typing-text"></div>
+
+    <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+
+    <script>
+        function logout() {
+            window.location.href = 'login.html'; // Redirect to login
+        }
+
+        // Typing effect for "Welcome, Admin!"
+        const text = "Welcome, Admin!";
+        let index = 0;
+        const typingElement = document.getElementById("typing-text");
+
+        function typeWriter() {
+            if (index < text.length) {
+                typingElement.innerHTML += text.charAt(index);
+                index++;
+                setTimeout(typeWriter, 100); // typing speed
+            }
+        }
+
+        window.onload = typeWriter;
+    </script>
+</body>
+
+</html>

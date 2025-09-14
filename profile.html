@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            width: 50%;
+            margin: auto;
+            margin-top: 80px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        h2 {
+            color: #1b54a6;
+        }
+
+        .profile-info {
+            margin-top: 20px;
+        }
+
+        .profile-info p {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        .logout-btn, .delete-btn {
+            background-color: #d9534f;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .logout-btn:hover {
+            background-color: #c9302c;
+        }
+
+        .delete-btn {
+            background-color: #5a5a5a;
+            margin-left: 10px;
+        }
+
+        .delete-btn:hover {
+            background-color: #3b3b3b;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 1024px) {
+            .container {
+                width: 60%;
+                padding: 18px;
+            }
+
+            .profile-info p {
+                font-size: 17px;
+            }
+
+            .logout-btn, .delete-btn {
+                padding: 9px 14px;
+                font-size: 16px;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .container {
+                width: 80%;
+                padding: 15px;
+            }
+
+            .profile-info p {
+                font-size: 16px;
+            }
+
+            .logout-btn, .delete-btn {
+                padding: 8px 12px;
+                font-size: 15px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .container {
+                width: 90%;
+                margin-top: 60px;
+                padding: 12px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+
+            .profile-info p {
+                font-size: 14px;
+            }
+
+            .logout-btn, .delete-btn {
+                padding: 7px 10px;
+                font-size: 14px;
+                width: 100%;
+                margin-left: 0;
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>User Profile</h2>
+        <div class="profile-info">
+            <p><strong>ID:</strong> <span id="user_id"></span></p>
+            <p><strong>Username:</strong> <span id="username"></span></p>
+            <p><strong>Email:</strong> <span id="email"></span></p>
+            <p><strong>Phone:</strong> <span id="phone"></span></p>
+            <p><strong>Date of Birth:</strong> <span id="dob"></span></p>
+            <p><strong>Gender:</strong> <span id="gender"></span></p>
+            <p><strong>Role:</strong> <span id="role"></span></p>
+        </div>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+        <button class="delete-btn" onclick="deleteAccount()">Delete Account</button>
+    </div>
+
+    <script>
+        function fetchProfile() {
+            fetch('profile.php')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        window.location.href = "login.html";
+                    } else {
+                        document.getElementById('user_id').textContent = data.id;
+                        document.getElementById('username').textContent = data.username;
+                        document.getElementById('email').textContent = data.email;
+                        document.getElementById('phone').textContent = data.phone;
+                        document.getElementById('dob').textContent = data.dob;
+                        document.getElementById('gender').textContent = data.gender;
+                        document.getElementById('role').textContent = data.role;
+                    }
+                })
+                .catch(error => console.error("Error fetching profile:", error));
+        }
+
+        function logout() {
+            fetch('logout.php')
+                .then(() => {
+                    window.location.href = "login.html";
+                });
+        }
+        function deleteAccount() {
+    if (confirm("Are you sure you want to delete your account? This action cannot be undone.")) {
+        alert("Confirm Delete Account");
+
+        fetch('delete_account.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert("Your account has been deleted.");
+                window.location.href = "login.html"; // Redirect after deletion
+            } else {
+                alert("Failed to delete account: " + data.error);
+            }
+        })
+        .catch(error => {
+            alert("Error deleting account: " + error);
+            console.error("Error:", error);
+        });
+    }
+}
+
+        window.onload = fetchProfile;
+    </script>
+</body>
+</html>

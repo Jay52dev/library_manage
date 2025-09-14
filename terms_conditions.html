@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms & Conditions | Library Management</title>
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Font Awesome for Icons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 80px auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1, h2 {
+            color: #1b54a6;
+        }
+
+        .terms-section {
+            margin-bottom: 20px;
+        }
+
+        .terms-section h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .terms-section p {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        /* Navbar */
+        .navbar {
+            width: 100%;
+            background-color: #1b54a6;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .website-name {
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .menu {
+            position: relative;
+            display: inline-block;
+        }
+
+        .menu-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .dropdown {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            overflow: hidden;
+            min-width: 180px;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .dropdown a {
+            display: block;
+            color: #333;
+            text-decoration: none;
+            padding: 12px 16px;
+            font-size: 16px;
+            transition: background 0.3s ease-in-out;
+        }
+
+        .dropdown a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .menu:hover .dropdown {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Responsive Design */
+@media screen and (max-width: 1024px) {
+    .container {
+        max-width: 90%;
+        margin: 100px auto;
+        padding: 18px;
+    }
+
+    .website-name {
+        font-size: 20px;
+    }
+
+    .menu-btn {
+        font-size: 22px;
+    }
+
+    .dropdown {
+        min-width: 160px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .navbar {
+        padding: 12px 15px;
+    }
+
+    .logo {
+        width: 45px;
+        height: 45px;
+    }
+
+    .website-name {
+        font-size: 18px;
+    }
+
+    .menu-btn {
+        font-size: 20px;
+    }
+
+    .container {
+        max-width: 95%;
+        padding: 15px;
+    }
+
+    .terms-section h2 {
+        font-size: 18px;
+    }
+
+    .terms-section p {
+        font-size: 15px;
+    }
+
+    .dropdown {
+        min-width: 150px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .navbar {
+        flex-direction: column;
+        padding: 10px;
+    }
+
+    .logo-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .logo {
+        width: 40px;
+        height: 40px;
+    }
+
+    .website-name {
+        font-size: 16px;
+        margin-left: 0;
+        margin-top: 5px;
+    }
+
+    .menu {
+        margin-top: 5px;
+    }
+
+    .container {
+        margin: 80px auto;
+        padding: 12px;
+    }
+
+    .terms-section h2 {
+        font-size: 16px;
+    }
+
+    .terms-section p {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    .dropdown {
+        min-width: 140px;
+    }
+}
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo-container">
+            <img src="logo.jpg" alt="Library Logo" class="logo">
+            <span class="website-name">Library Management</span>
+        </div>
+        <div class="menu">
+            <button class="menu-btn"><i class="fas fa-bars"></i></button>
+            <div class="dropdown">
+                <a href="index.html">Home</a>
+                <a href="profile.html">profile</a>
+                <a href="issue_book.html">Issue Book</a>
+                <a href="contact.html">Contact Us</a>
+                <a href="about.html">About</a>
+                <a href="logout.php">Logout</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1>Library Terms & Conditions</h1>
+
+        <div class="terms-section">
+            <h2>1. Library Membership</h2>
+            <p>All users must register to borrow books. Members should provide valid identification and keep their credentials confidential.</p>
+        </div>
+
+        <div class="terms-section">
+            <h2>2. Borrowing Policy</h2>
+            <p>Each user can borrow up to 3 books at a time for a period of 14 days. Late returns may incur a fine of $0.50 per day.</p>
+        </div>
+
+        <div class="terms-section">
+            <h2>3. Book Care & Responsibility</h2>
+            <p>Borrowers are responsible for maintaining books in good condition. Damaged or lost books must be replaced or paid for.</p>
+        </div>
+
+        <div class="terms-section">
+            <h2>4. Library Conduct</h2>
+            <p>Users should maintain silence and respect library rules. Any disruptive behavior may result in membership suspension.</p>
+        </div>
+
+        <div class="terms-section">
+            <h2>5. Digital Resources</h2>
+            <p>Access to digital resources is restricted to members only. Sharing credentials is strictly prohibited.</p>
+        </div>
+
+        <div class="terms-section">
+            <h2>6. Privacy & Data Protection</h2>
+            <p>Personal data collected during registration is confidential and will not be shared without user consent.</p>
+        </div>
+
+        <div class="terms-section">
+            <h2>7. Amendments</h2>
+            <p>The library reserves the right to update these terms as needed. Changes will be communicated via official channels.</p>
+        </div>
+
+    </div>
+
+</body>
+</html>

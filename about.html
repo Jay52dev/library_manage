@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Library Management System</title>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Reset and general styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            line-height: 1.6;
+            padding-top: 60px;
+            /* To avoid overlap with fixed navbar */
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            width: 100%;
+            background-color: #1b54a6;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .website-name {
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        /* Hamburger Menu */
+        .menu {
+            position: relative;
+            display: inline-block;
+        }
+
+        .menu-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .menu-btn:hover {
+            transform: rotate(90deg);
+        }
+
+        .dropdown {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            overflow: hidden;
+            min-width: 180px;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .dropdown a {
+            display: block;
+            color: #333;
+            text-decoration: none;
+            padding: 12px 16px;
+            font-size: 16px;
+            transition: background 0.3s ease-in-out;
+        }
+
+        .dropdown a:hover {
+            background-color: #f1f1f1;
+            padding-left: 20px;
+        }
+
+        .menu:hover .dropdown {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* About Section */
+        .about {
+            background-color: white;
+            border-radius: 8px;
+            margin: 20px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #2980b9;
+            margin-bottom: 20px;
+        }
+
+        .about-content {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: space-between;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .about-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .about-description {
+            flex: 1;
+        }
+
+        /* Team Section */
+        .team {
+            margin-top: 40px;
+        }
+
+        .team-members {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .team-member {
+            text-align: center;
+            width: 300px;
+            margin-bottom: 20px;
+        }
+
+        .team-member img {
+            border-radius: 50%;
+            margin-bottom: 10px;
+            width: 150px;
+            height: 150px;
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .footer-links {
+            margin-top: 10px;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #ff9800;
+        }
+
+        /* Social Icons */
+        .social-icons a {
+            color: white;
+            font-size: 24px;
+            margin: 0 10px;
+            transition: transform 0.3s;
+        }
+
+        .social-icons a:hover {
+            transform: scale(1.2);
+            color: #ff9800;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+
+            /* For Tablets & iPads */
+            .navbar {
+                padding: 10px 15px;
+            }
+
+            .website-name {
+                font-size: 20px;
+            }
+
+            .menu-btn {
+                font-size: 22px;
+            }
+
+            .about {
+                margin: 15px;
+                padding: 15px;
+            }
+
+            .about-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .about-description {
+                order: 2;
+            }
+
+            .about-image {
+                order: 1;
+            }
+
+            .team-members {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+
+            /* For Mobile Devices */
+            .navbar {
+                flex-direction: row;
+                justify-content: space-between;
+                padding: 10px;
+            }
+
+            .website-name {
+                font-size: 18px;
+            }
+
+            .menu-btn {
+                font-size: 20px;
+            }
+
+            .dropdown {
+                position: absolute;
+                right: 10px;
+                top: 50px;
+                width: 100%;
+                text-align: center;
+            }
+
+            .dropdown a {
+                display: block;
+                padding: 12px;
+            }
+
+            .about {
+                margin: 10px;
+                padding: 10px;
+            }
+
+            .about-content {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .team-members {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .team-member {
+                width: 90%;
+            }
+
+            .footer-links a {
+                display: block;
+                margin-bottom: 5px;
+            }
+        }
+
+        @media (max-width: 480px) {
+
+            /* For Small Mobile Screens */
+            .navbar {
+                flex-direction: row;
+                padding: 8px;
+            }
+
+            .logo {
+                width: 40px;
+                height: 40px;
+            }
+
+            .website-name {
+                font-size: 16px;
+            }
+
+            .menu-btn {
+                font-size: 18px;
+            }
+
+            .dropdown {
+                width: 100%;
+                text-align: center;
+            }
+
+            .about {
+                margin: 5px;
+                padding: 8px;
+            }
+
+            h2,
+            h3 {
+                font-size: 18px;
+            }
+
+            .team-member img {
+                width: 120px;
+                height: 120px;
+            }
+
+            .footer-links {
+                text-align: center;
+                font-size: 12px;
+            }
+
+            .social-icons a {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo-container">
+            <img src="logo.jpg" alt="Library Logo" class="logo">
+            <span class="website-name">Library Management</span>
+        </div>
+        <div class="menu">
+            <button class="menu-btn"><i class="fas fa-bars"></i></button>
+            <div class="dropdown">
+                <a href="dashboard.html">Home</a>
+                <a href="profile.html">Profile</a>
+                <a href="issue_book.html">Issue Book</a>
+                <a href="issued_books.html">issued Book</a>
+                <a href="books.php">Recently Added Books</a>
+                <a href="contact.html">contact Us</a>
+                <a href="about.html">About</a>
+            </div>
+        </div>
+    </div>
+    <!-- About Section -->
+    <section class="about">
+        <h2>About Us</h2>
+        <p>Welcome to our Library Management System. We aim to provide an efficient system to manage and organize
+            library resources, making it easier for librarians and users to manage books, track inventory, and enhance
+            user experience.</p>
+
+        <div class="about-content">
+            <div class="about-description">
+                <h3>Our Mission</h3>
+                <p>Our mission is to digitize and simplify the way libraries operate. We believe in making books and
+                    resources accessible, easy to manage, and more organized, all while reducing human error and
+                    improving efficiency.</p>
+            </div>
+
+            <div class="about-image">
+                <img src="https://media.istockphoto.com/id/505551939/photo/library.jpg?s=612x612&w=0&k=20&c=lGwjpaVR2__plgaEeRiLZ0n1up16Zm3PW6zlR4paabI="
+                    alt="Library Image">
+            </div>
+        </div>
+
+        <!-- Meet the Team Section -->
+        <section class="team">
+            <h3>Meet the Team</h3>
+            <div class="team-members">
+                <div class="team-member">
+                    <img src="emp1.jpeg" alt="Team Member">
+                    <p><strong>Emma Joe</strong> - Head Of Library</p>
+                    <p>Emma is the head of the library department. She manages books and students who enroll in the
+                        library and oversees book issue dates.</p>
+                </div>
+            </div>
+        </section>
+    </section>
+
+    <footer>
+        <p>"Unlock a world of wisdom with every page you turn!"</p>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+        </div>
+        <div class="footer-links">
+            <a href="terms_conditions.html">Terms & Conditions </a>
+            <a href="contact.html">Contact Us</a>
+        </div>
+        <p>&copy; 2025 Library Management System | Designed for book lovers</p>
+    </footer>
+    <script>
+        function toggleMenu() {
+            const dropdownMenu = document.querySelector('.dropdown-menu');
+            dropdownMenu.classList.toggle('show');
+        }
+    </script>
+
+</body>
+</html>

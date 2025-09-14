@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Management System</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for Social Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        .navbar {
+            width: 100%;
+            background-color: #1b54a6;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .website-name {
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        /* Hamburger Menu */
+        .menu {
+            position: relative;
+            display: inline-block;
+        }
+
+        .menu-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .menu-btn:hover {
+            transform: rotate(90deg);
+        }
+
+        .dropdown {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            overflow: hidden;
+            min-width: 180px;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .dropdown a {
+            display: block;
+            color: #333;
+            text-decoration: none;
+            padding: 12px 16px;
+            font-size: 16px;
+            transition: background 0.3s ease-in-out;
+        }
+
+        .dropdown a:hover {
+            background-color: #f1f1f1;
+            padding-left: 20px;
+        }
+
+        .menu:hover .dropdown {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* About Section */
+        .about-section {
+            background: white;
+            padding: 50px 20px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .about-section h2 {
+            color: #1b54a6;
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+
+        .about-section p {
+            font-size: 16px;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .about-section button {
+            background-color: #ff9800;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .about-section button:hover {
+            background-color: #e68900;
+        }
+
+        /* Adjust spacing after navbar */
+        .typing-container {
+            text-align: center;
+            margin-top: 120px;
+            /* Push it down from navbar */
+            font-size: 50px;
+            background-color: rgb(246, 244, 244);
+            font-weight: bold;
+            color: rgb(41, 39, 39);
+            height: 100px;
+            padding-top: 20px;
+            /* Adjust spacing inside */
+        }
+
+        /* Adjust padding in sections */
+        .books-section {
+            text-align: center;
+            padding: 50px 20px;
+            /* Increased padding */
+            margin-top: 30px;
+            /* Adds more space */
+        }
+
+        .features {
+            padding: 70px 20px;
+        }
+
+
+        @keyframes typing {
+            from {
+                width: 0;
+            }
+
+            to {
+                width: 100%;
+            }
+        }
+
+        @keyframes blink {
+            50% {
+                border-color: transparent;
+            }
+        }
+
+        /* Book Section */
+        .books-container {
+            display: flex;
+            flex-wrap: wrap;
+            /* Allows items to wrap to the next line */
+            gap: 20px;
+            padding-bottom: 10px;
+            justify-content: center;
+            /* Centers items if they don't take full width */
+            overflow: hidden;
+            /* Hides horizontal scrolling */
+        }
+
+        #issue-form-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .book {
+            width: 180px;
+            background: #fff;
+            border: 2px solid #ddd;
+            padding: 10px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+            text-align: center;
+            border-radius: 8px;
+        }
+
+        .book:hover {
+            transform: translateY(-5px);
+
+        }
+
+        .book img {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .book p {
+            margin-top: 8px;
+            font-weight: bold;
+            padding: 10px 0;
+            background: #c7f55b;
+            color: white;
+            width: 100%;
+            display: block;
+            border-bottom: 4px solid #333;
+            border-radius: 0 0 5px 5px;
+        }
+
+        .book .p1 {
+            margin-top: 8px;
+            font-weight: bold;
+            padding: 10px 0;
+            background: rgb(104, 104, 255);
+            width: 100%;
+            display: block;
+            border-bottom: 2px solid #333;
+            border-radius: 0 0 5px 5px;
+        }
+
+        .borrow {
+            text-decoration: none;
+        }
+
+        .borrow:hover {
+            text-decoration: underline;
+            color: #131312;
+        }
+
+        .borrow1 {
+            color: white;
+            text-decoration: none;
+        }
+
+        .borrow1:hover {
+            text-decoration: underline;
+        }
+
+        .popup-container {
+            position: fixed;
+            top: 10%;
+            /* Reset top position */
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* Centers vertically */
+        }
+
+        .popup {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 300px;
+            text-align: center;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .popup input {
+            width: 100%;
+            padding: 8px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        /* Features Section */
+        .features {
+            background: #222;
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .features h2 {
+            color: #ff9800;
+        }
+
+        /* Features Section */
+        .features {
+            background: white;
+            color: white;
+            padding: 50px 20px;
+            text-align: center;
+            gap: 40px;
+        }
+
+        .features h2 {
+            color: #ff9800;
+            margin-bottom: 30px;
+        }
+
+        .features-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+        }
+
+        .feature-box {
+            background: #333;
+            padding: 20px;
+            width: 250px;
+            text-align: center;
+            border-radius: 8px;
+            transition: transform 0.3s ease-in-out, background 0.3s ease-in-out;
+        }
+
+        .feature-box:hover {
+            transform: translateY(-5px);
+            background: #ff9800;
+        }
+
+        .feature-box i {
+            font-size: 40px;
+            color: #ff9800;
+            margin-bottom: 10px;
+        }
+
+        .feature-box h3 {
+            margin-bottom: 10px;
+        }
+
+        .feature-box p {
+            font-size: 14px;
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .footer-links {
+            margin-top: 10px;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #ff9800;
+        }
+
+        /* Social Icons */
+        .social-icons a {
+            color: white;
+            font-size: 24px;
+            margin: 0 10px;
+            transition: transform 0.3s;
+        }
+
+        .social-icons a:hover {
+            transform: scale(1.2);
+            color: #ff9800;
+        }
+
+        /* Responsive Styles */
+
+        /* General adjustments for smaller screens */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .menu {
+                width: 100%;
+                display: block;
+            }
+
+            .dropdown {
+                position: static;
+                display: none;
+                /* Hide dropdown by default */
+            }
+
+            .menu-btn {
+                display: block;
+                margin: 10px 0;
+            }
+
+            .menu:hover .dropdown {
+                display: block;
+                /* Show dropdown on hover */
+            }
+
+            .books-container {
+                flex-direction: column;
+                /* Stack books vertically */
+                align-items: center;
+                /* Center align books */
+            }
+
+            .book {
+                width: 90%;
+                /* Make books take up more width */
+                margin-bottom: 20px;
+                /* Add space between books */
+            }
+
+            .about-section {
+                padding: 30px 10px;
+                /* Reduce padding */
+            }
+
+            .features-container {
+                flex-direction: column;
+                /* Stack features vertically */
+                align-items: center;
+                /* Center align features */
+            }
+
+            .feature-box {
+                width: 90%;
+                /* Make feature boxes take up more width */
+                margin-bottom: 20px;
+                /* Add space between feature boxes */
+            }
+
+            .footer-links {
+                flex-direction: column;
+                /* Stack footer links vertically */
+                align-items: center;
+                /* Center align footer links */
+            }
+
+            .social-icons {
+                justify-content: center;
+                /* Center social icons */
+            }
+        }
+
+        /* Adjustments for very small screens (phones) */
+        @media (max-width: 480px) {
+            .navbar {
+                padding: 10px 15px;
+                /* Reduce navbar padding */
+            }
+
+            .website-name {
+                font-size: 18px;
+                /* Smaller font size for website name */
+            }
+
+            .typing-container {
+                font-size: 30px;
+                /* Smaller font size for typing effect */
+            }
+
+            .about-section h2 {
+                font-size: 24px;
+                /* Smaller font size for about section heading */
+            }
+
+            .about-section p {
+                font-size: 14px;
+                /* Smaller font size for about section text */
+            }
+
+            .books-section h2 {
+                font-size: 24px;
+                /* Smaller font size for books section heading */
+            }
+
+            .feature-box h3 {
+                font-size: 20px;
+                /* Smaller font size for feature box heading */
+            }
+
+            .feature-box p {
+                font-size: 12px;
+                /* Smaller font size for feature box text */
+            }
+
+            footer {
+                font-size: 12px;
+                /* Smaller font size for footer text */
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navbar">
+        <div class="logo-container">
+            <img src="logo.jpg" alt="Library Logo" class="logo">
+            <span class="website-name">Library Management</span>
+        </div>
+        <div class="menu">
+            <button class="menu-btn"><i class="fas fa-bars"></i></button>
+            <div class="dropdown">
+                <a href="dashboard.html">Home</a>
+                <a href="profile.html">Profile</a>
+                <a href="issue_book.html">Issue Book</a>
+                <a href="issued_books.html">Issued Book</a>
+                <a href="books.php">Recently Added Books</a>
+                <a href="contact.html">contact Us</a>
+                <a href="about.html">About</a>
+            </div>
+        </div>
+    </div>
+    <div id="carouselExample" class="carousel slide">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="slider2.jpg" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="slider1.jpg" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="slider3.jpg" class="d-block w-100" alt="...">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+    <!-- Typing Effect -->
+    <div class="typing-container">
+        <span class="typing-text"></span>
+    </div>
+    <!-- About Section -->
+    <section class="about-section">
+        <div class="container text-center">
+            <h2>About Our Library</h2>
+            <p>
+                Welcome to the <strong>Library Management System</strong>, your ultimate destination for managing books
+                efficiently.
+                We are dedicated to creating an easy-to-use, digital-friendly library experience for both librarians and
+                readers.
+            </p>
+            <p id="more-about" class="collapse">
+                Our system offers seamless book cataloging, quick borrowing options, and an advanced search system to
+                help you
+                find your favorite books in no time. Whether you love fiction, non-fiction, biographies, or research
+                materials,
+                our library has something for everyone. <a href="about.html">show more</a>
+            </p>
+            <button class="btn btn-primary mt-2" data-bs-toggle="collapse" data-bs-target="#more-about">
+                Show More
+            </button>
+        </div>
+    </section>
+    <!-- Sections -->
+    <section class="books-section">
+        <h2>Novel Books</h2>
+        <div class="books-container">
+            <div class="book">
+                <img src="book1.jpg" alt="Book 1">
+                <p class="p1"><a
+                        href="https://hi.wikipedia.org/wiki/%E0%A4%97%E0%A4%BC%E0%A4%AC%E0%A4%A8_(%E0%A4%89%E0%A4%AA%E0%A4%A8%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%B8)"
+                        class="borrow1">Know More</a></p>
+            </div>
+            <div class="book">
+                <img src="book2.jpg" alt="Book 2">
+                <p class="p1"><a
+                        href="https://hi.wikipedia.org/wiki/%E0%A4%95%E0%A4%82%E0%A4%95%E0%A4%BE%E0%A4%B2_(%E0%A4%89%E0%A4%AA%E0%A4%A8%E0%A5%8D%E0%A4%AF%E0%A4%BE%E0%A4%B8)"
+                        class="borrow1">Know More</a></p>
+            </div>
+            <div class="book">
+                <img src="book3.jpg" alt="Book 3">
+                <p class="p1"><a href="https://en.wikipedia.org/wiki/Godaan" class="borrow1">Know More</a></p>
+            </div>
+            <div class="book">
+                <img src="book4.jpg" alt="Book 4">
+                <p class="p1"><a
+                        href="https://hi.wikipedia.org/wiki/%E0%A4%95%E0%A4%AB%E0%A4%A8_(%E0%A4%95%E0%A4%A5%E0%A4%BE%E0%A4%B8%E0%A4%82%E0%A4%97%E0%A5%8D%E0%A4%B0%E0%A4%B9)"
+                        class="borrow1">Know More</a></p>
+            </div>
+        </div>
+    </section>
+    <section class="books-section">
+        <h2>Featured Books</h2>
+        <div class="books-container">
+            <div class="book">
+                <img src="book9.jpg" alt="Book 1">
+                <p class="p1"><a href="https://en.wikipedia.org/wiki/Politics_(Aristotle)" class="borrow1">know More</a>
+                </p>
+            </div>
+            <div class="book">
+                <img src="book10.jpg" alt="Book 2">
+                <p class="p1"><a href="https://en.wikipedia.org/wiki/Hindu_philosophy" class="borrow1">know More</a></p>
+            </div>
+            <div class="book">
+                <img src="book11.jpg" alt="Book 3">
+                <p class="p1"><a
+                        href="https://hi.wikipedia.org/wiki/%E0%A4%B8%E0%A5%8D%E0%A4%B5%E0%A4%BE%E0%A4%AE%E0%A5%80_%E0%A4%B5%E0%A4%BF%E0%A4%B5%E0%A5%87%E0%A4%95%E0%A4%BE%E0%A4%A8%E0%A4%82%E0%A4%A6_%E0%A4%95%E0%A5%80_%E0%A4%B6%E0%A4%BF%E0%A4%95%E0%A5%8D%E0%A4%B7%E0%A4%BE_%E0%A4%94%E0%A4%B0_%E0%A4%A6%E0%A4%B0%E0%A5%8D%E0%A4%B6%E0%A4%A8"
+                        class="borrow1">know More</a></p>
+            </div>
+            <div class="book">
+                <img src="book12.jpg" alt="Book 4">
+                <p class="p1"><a
+                        href="https://hi.wikipedia.org/wiki/%E0%A4%B8%E0%A5%8D%E0%A4%B5%E0%A4%BE%E0%A4%AE%E0%A5%80_%E0%A4%B5%E0%A4%BF%E0%A4%B5%E0%A5%87%E0%A4%95%E0%A4%BE%E0%A4%A8%E0%A4%82%E0%A4%A6_%E0%A4%95%E0%A5%80_%E0%A4%B6%E0%A4%BF%E0%A4%95%E0%A5%8D%E0%A4%B7%E0%A4%BE_%E0%A4%94%E0%A4%B0_%E0%A4%A6%E0%A4%B0%E0%A5%8D%E0%A4%B6%E0%A4%A8"
+                        class="borrow1">know More</a></p>
+            </div>
+        </div>
+    </section>
+    <section class="books-section">
+        <h2>Popular Books</h2>
+        <div class="books-container">
+            <div class="book">
+                <img src="book5.jpg" alt="Book 5">
+                <p class="p1"><a href="https://en.wikipedia.org/wiki/Anandamath" class="borrow1">know More</a></p>
+            </div>
+            <div class="book">
+                <img src="book6.jpg" alt="Book 6">
+                <p class="p1"><a href="https://en.wikipedia.org/wiki/Rich_Dad_Poor_Dad" class="borrow1">know More</a>
+                </p>
+            </div>
+            <div class="book">
+                <img src="book7.jpg" alt="Book 7">
+                <p class="p1"><a href="https://en.wikipedia.org/wiki/The_Story_of_My_Experiments_with_Truth"
+                        class="borrow1">know More</a></p>
+            </div>
+            <div class="book">
+                <img src="book8.jpg" alt="Book 8">
+                <p class="p1"><a href="https://en.wikipedia.org/wiki/A._P._J._Abdul_Kalam" class="borrow1">know More</a>
+                </p>
+            </div>
+        </div>
+    </section>
+    <section class="books-section">
+        <h2>Story Books</h2>
+        <div class="books-container">
+            <div class="book">
+                <img src="book13.jpg" alt="Book 1">
+                <p class="p1"><a href="https://www.femina.in/hindi/sahitya/kahani/akeli-by-mannu-bhandari-4779.html"
+                        class="borrow1">know More</a></p>
+            </div>
+            <div class="book">
+                <img src="book14.jpg" alt="Book 1">
+                <p class="p1"><a
+                        href="https://hi.wikipedia.org/wiki/%E0%A4%AA%E0%A4%82%E0%A4%9A%E0%A4%A4%E0%A4%82%E0%A4%A4%E0%A5%8D%E0%A4%B0"
+                        class="borrow1">know More</a></p>
+            </div>
+            <div class="book">
+                <img src="book15.jpg" alt="Book 1">
+                <p class="p1"><a
+                        href="https://books.google.co.in/books/about/World_History.html?id=Rb5JMQAACAAJ&redir_esc=y"
+                        class="borrow1">know More</a></p>
+            </div>
+            <div class="book">
+                <img src="book16.jpg" alt="Book 2">
+                <p class="p1"><a href="https://en.wikipedia.org/wiki/The_Discovery_of_India" class="borrow1">know
+                        More</a></p>
+            </div>
+        </div>
+    </section>
+    <!-- Features Section -->
+    <section class="features">
+        <h2>Why Choose Our Library?</h2>
+        <div class="features-container">
+            <div class="feature-box">
+                <i class="fas fa-book-open"></i>
+                <h3>Vast Collection</h3>
+                <p>Explore lots of books from different genres, including philosophy, Biography, and Others.</p>
+            </div>
+            <div class="feature-box">
+                <i class="fas fa-calendar-check"></i>
+                <h3>contact Options</h3>
+                <p>Easy to contact option with the team and resolve that problem.</p>
+            </div>
+            <div class="feature-box">
+                <i class="fas fa-chair"></i>
+                <h3>Cozy Reading Space</h3>
+                <p>Enjoy reading in our peaceful and well-lit environment, designed for book lovers.</p>
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer>
+        <p>"Unlock a world of knowledge with every page you turn!"</p>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+        </div>
+        <div class="footer-links">
+            <a href="privacy_policy.html">Privacy Policy</a> |
+            <a href="terms_conditions.html">Terms & Conditions</a> |
+            <a href="contact.html">Contact Us</a>
+        </div>
+        <p>&copy; 2025 Library Management System | Designed for book lovers</p>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function toggleMenu() {
+            document.getElementById("navbarMenu").classList.toggle("active");
+        }
+        function startTypingEffect() {
+            const textArray = [
+                "Open a book, open your mind.",
+                "Libraries: fueling minds, one book at a time."
+            ];
+            let index = 0;
+            let textElement = document.querySelector(".typing-text");
+
+            function typeText() {
+                textElement.innerHTML = "";
+                let i = 0;
+                let text = textArray[index];
+                function type() {
+                    if (i < text.length) {
+                        textElement.innerHTML += text.charAt(i);
+                        i++;
+                        setTimeout(type, 100);
+                    } else {
+                        setTimeout(() => {
+                            index = (index + 1) % textArray.length;
+                            typeText();
+                        }, 2000);
+                    }
+                }
+                type();
+            }
+            typeText();
+        }
+        window.onload = startTypingEffect;
+    </script>
+</body>
+
+</html>
